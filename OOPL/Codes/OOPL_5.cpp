@@ -82,3 +82,70 @@ int main()
     
     return 0;
 }
+
+// OR
+
+
+#include <iostream>
+using namespace std;
+
+// Template function for selection sort
+template <typename T>
+void selectionSort(T arr[], int size) {
+    for (int i = 0; i < size - 1; i++) {
+        int minIndex = i;
+        // Find the minimum element in the unsorted portion of the array
+        for (int j = i + 1; j < size; j++) {
+            if (arr[j] < arr[minIndex]) {
+                minIndex = j;
+            }
+        }
+        // Swap the found minimum element with the first element
+        T temp = arr[minIndex];
+        arr[minIndex] = arr[i];
+        arr[i] = temp;
+    }
+}
+
+// Helper function to print the array
+template <typename T>
+void printArray(T arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
+int main() {
+    // Test with integer array
+    int intArr[100];
+    int size;
+    cout << "Enter size of Int Array: ";
+    cin >> size;
+    cout << "Enter int Array Elements:" << endl;
+    for (int i = 0; i < size; i++) {
+        cin >> intArr[i];
+    }
+    cout << "Original Integer Array: ";
+    printArray(intArr, size);
+    selectionSort(intArr, size);
+    cout << "Sorted Integer Array: ";
+    printArray(intArr, size);
+
+    // Test with float array
+    float floatArr[100];
+    int fsize;
+    cout << "Enter size of Float Array: ";
+    cin >> fsize; // Use the correct variable `fsize` here
+    cout << "Enter float Array Elements:" << endl;
+    for (int i = 0; i < fsize; i++) {
+        cin >> floatArr[i];
+    }
+    cout << "Original Float Array: ";
+    printArray(floatArr, fsize);
+    selectionSort(floatArr, fsize);
+    cout << "Sorted Float Array: ";
+    printArray(floatArr, fsize);
+
+    return 0;
+}
