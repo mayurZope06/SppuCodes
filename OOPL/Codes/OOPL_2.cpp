@@ -303,3 +303,172 @@ int main()
 
     return 0;
 }
+
+// OR
+// ____________________________________________________________________________________________________________________________________________________________
+#include <iostream>
+using namespace std;
+
+class StudData;
+
+class Student
+{
+    string name;
+    int rollno;
+    string cls;
+    char * div;
+    string dob;
+    char *bg;
+    static int count;
+
+    public:
+        Student()
+        {
+            name = "";
+            rollno = 0;
+            cls = "";
+            div = new char;
+            dob = "dd/mm/yyyy";
+            bg = new char[4];
+
+        }
+        ~Student()
+        {
+            delete div;
+            delete [] bg;
+        }
+
+        static int getCount()
+        {
+            return count;
+        }
+
+        void getData(StudData *);
+        void dispData(StudData *);
+
+};
+
+class StudData
+{
+    string caddress;
+    string *telno;
+    string *dlno;
+
+    friend class Student;
+
+    public:
+        StudData()
+        {
+            caddress = "";
+            telno = new string[10];
+            dlno = new string[10];
+        }
+        ~StudData()
+        {
+            delete telno;
+            delete dlno;
+        }
+
+        void getStudData ()
+        {
+            cout << "\nEnter Contact Address: "<<endl;
+            cin.get();
+            getline (cin, caddress);
+            cout << "Enter Telephone Number: "<<endl;
+            cin >> *telno;
+            cout << "Enter Driving License Number: " << endl;
+            cin >> *dlno;
+        }
+        void dispStudData()
+        {
+            cout << "Contact Address: " << caddress << endl;
+            cout << "Telephone Number: " << *telno << endl;
+            cout << "Driving License Number: " << *dlno << endl;
+        }
+
+};
+
+inline void Student :: getData (StudData *st)
+{
+    cout << "-------Enter Details--------" << endl;
+
+    cout << "Enter Student Name: " << endl;
+    cin.get();
+    getline (cin, name);
+
+    cout<<"Enter Roll NumbeR: " << endl;
+    cin >> rollno;
+
+    cout << "Enter Class: "<<endl;
+    cin.get();
+    getline(cin, cls);
+
+    cout<<"Enter Division: " << endl;
+    cin >> div;
+
+    cout << "Enter Date of Birth: " << endl;
+    cin.get();
+    getline(cin, dob);
+
+    cout << "Enter Blood Group: " << endl;
+    cin >> bg;
+
+    st -> getStudData();
+    count++;
+}
+
+inline void Student :: dispData(StudData *st1)
+{
+    cout << "-----------STUDENT DETAILS------------" << endl;
+    cout << "Student Name: " << name << endl;
+    cout << "Student Roll Number: "<<rollno << endl;
+    cout << "Student Class: " << cls << endl;
+    cout << "Student Division: " << div <<endl;
+    cout << "Student Date Of Birth: " << dob <<endl;
+    cout << "Student Blood Group: " << bg << endl;
+
+    st1 -> dispStudData();
+
+}
+
+int Student :: count;
+
+int main()
+{
+    Student *stud1[100];
+    StudData *stud2[100];
+
+    int n = 0;
+
+    char ch;
+    do
+    {
+        stud1[n] = new Student;
+        stud2[n] = new StudData;
+        stud1[n] -> getData(stud2[n]);
+        n++;
+
+        cout << "Do you want to add another Student (y/n) : " <<endl;
+        cin >> ch;
+        cin.get();
+    }
+    while (ch == 'y' || ch =='Y');
+
+    for (int i = 0; i < n; i++)
+    {
+        cout<< "-----------------------------------------------------"<<endl;
+        stud1[i] -> dispData(stud2[i]);
+    }
+    cout <<"-------------------------------------------------------" <<endl;
+    cout << "Total Students : "<< Student::getCount();
+    cout << endl;
+    cout <<"*-------------------------------------------------------*"<<endl;
+    for(int i = 0; i < n; i++)
+    {
+        delete stud1[i];
+        delete stud2[i];
+    }
+
+    return 0;
+
+}
