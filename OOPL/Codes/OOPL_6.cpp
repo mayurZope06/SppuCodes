@@ -312,3 +312,129 @@ int main()
         }
     } while (op != 7);
 }
+
+// OR -------------------------------------------------------------------------------------------------------------------------------------------------------------+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+
+using namespace std;
+
+struct PersonalRecord
+{
+    string name;
+    string dob;
+    string telno;
+
+    void display()
+    {
+        cout << "Name: " << name << ", DOB: " << dob << ", Telephone: " << telno << endl;
+    }
+};
+
+bool compareByName (PersonalRecord a, PersonalRecord B)
+{
+    return a.name < B.name;
+}
+
+void searchByName(vector<PersonalRecord> records, string name)
+{
+    bool found = false;
+
+    for (int i = 0; i < records.size(); i++)
+    {
+        if (records[i].name == name)
+        {
+            cout << "Record found: " << endl;
+            records[i].display();
+            found = true;
+            break;
+        }
+    }
+    if(!found)
+    {
+        cout << "Records not found." <<endl;
+    }
+}
+
+int main()
+{
+    vector <PersonalRecord> records;
+    int ch;
+
+    do
+    {
+        cout << "-----------MENU---------------"<<endl;
+        cout << "1. ADD Record. \n2. Display All Records. \n 3. Sort Records by Name. \n4. Search Records by Name. \n5. Exit. "<<endl;
+        cout << "ENter your choice: "<<endl;
+        cin >> ch;
+
+        switch(ch)
+        {
+            case 1:
+            {
+                PersonalRecord record;
+                cout << "ENter Name: " << endl;
+                cin.get();
+                getline(cin, record.name);
+
+                cout << "Enter Date Of Birth (dd/mm/yyyy): " << endl;
+                cin.get();
+                getline(cin, record.dob);
+
+                cout << "Enter Telephone Number: " <<endl;
+                cin.get();
+                getline(cin, record.telno);
+
+                records.push_back(record);
+                cout << "Record added Successfully." <<endl;
+                break; 
+            }
+            case 2:
+            {
+                cout << "All Records: " <<endl;
+                for (int i = 0; i < records.size(); i++)
+                {
+                    records[i].display();
+                }
+                break;
+            }
+            case 3:
+            {
+                sort(records.begin(), records.end(), compareByName);
+                cout << "Records Sorted by Name." <<endl;
+
+                cout << "Sorted RecordS: " <<endl;
+                for (int i = 0; i< records.size(); i++)
+                {
+                    records[i].display();
+                }
+                break;
+            }
+            case 4:
+            {
+                string search;
+                cout << "Enter Name to search: " <<endl;
+                cin.get();
+                getline(cin, search);
+
+                searchByName(records, search);
+                break;
+            }
+            case 5:
+            {
+                cout << "Exiting Program..." << endl;
+                exit(0);
+            }
+            default:
+            {
+                cout <<"Invalid Choice, Please Try again!" << endl;
+
+            }    
+        }
+    } while (ch != 5);
+
+    return 0;
+    
+}
