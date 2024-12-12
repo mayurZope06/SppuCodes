@@ -71,3 +71,7 @@ int main()
 
 
 https://drive.google.com/drive/u/0/folders/17LBPLivPNa8X4fvIOZ863shvu-R6VIQK
+
+g++ filename.cpp -o myprogram
+./myprogram
+
