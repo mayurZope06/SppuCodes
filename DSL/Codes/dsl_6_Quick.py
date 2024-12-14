@@ -52,3 +52,49 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# OR
+
+def quickSort(arr):
+    def partition(low, high):
+        pivot = arr[high]
+
+        i = low - 1
+        for j in range (low, high):
+            if arr[j] <= pivot:
+                i += 1
+                arr[i], arr[j] = arr[j], arr[i]
+
+        arr[i + 1], arr[high] = arr[high], arr[i + 1]
+        return i + 1
+    
+    def quickSortRecursive (low, high):
+        if low < high:
+            pi = partition(low, high)
+            quickSortRecursive(low, pi - 1)
+            quickSortRecursive(pi + 1, high)
+
+    quickSortRecursive(0, len(arr) - 1)
+
+def dispTopFive (arr):
+    quickSort(arr)
+    topFive = arr[-5: ] if len(arr) >= 5 else arr
+    print("Top Five Scores:")
+    for score in reversed(topFive):
+        print(f"{score:.2f}")
+
+def main():
+    percentages = []
+    size = int(input("ENter size of arr:"))
+    for _ in range (size):
+        ele = float(input("ENter Elements:"))
+        percentages.append(ele)
+
+    print("Original Percentages:")
+    for p in percentages:
+        print(f"{p:.2f}")
+
+    dispTopFive(percentages)
+
+if __name__ == "__main__":
+            main()
