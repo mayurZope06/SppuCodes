@@ -96,3 +96,79 @@ int main(){
     } while (ch == 1);
     return 0;
 }
+
+// OR
+
+#include <iostream>
+#include <queue>
+#include <string>
+using namespace std;
+
+// Function to display the current queue
+void displayQueue(queue<string> jobQueue) {
+    if (jobQueue.empty()) {
+        cout << "The job queue is empty.\n";
+        return;
+    }
+
+    cout << "Current job queue: \n";
+    while (!jobQueue.empty()) {
+        cout << "- " << jobQueue.front() << "\n";
+        jobQueue.pop();
+    }
+}
+
+// Function to add a job to the queue
+void addJob(queue<string>& jobQueue, const string& job) {
+    jobQueue.push(job);
+    cout << "Job '" << job << "' added to the queue.\n";
+}
+
+// Function to delete a job from the queue
+void deleteJob(queue<string>& jobQueue) {
+    if (jobQueue.empty()) {
+        cout << "No jobs to delete. The queue is empty.\n";
+        return;
+    }
+
+    cout << "Job '" << jobQueue.front() << "' removed from the queue.\n";
+    jobQueue.pop();
+}
+
+int main() {
+    queue<string> jobQueue;
+    int choice;
+    string jobName;
+
+    do {
+        cout << "\nJob Queue Management System\n";
+        cout << "1. Add Job\n";
+        cout << "2. Delete Job\n";
+        cout << "3. Display Queue\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            cout << "Enter job name: ";
+            cin.ignore();
+            getline(cin, jobName);
+            addJob(jobQueue, jobName);
+            break;
+        case 2:
+            deleteJob(jobQueue);
+            break;
+        case 3:
+            displayQueue(jobQueue);
+            break;
+        case 4:
+            cout << "Exiting...\n";
+            break;
+        default:
+            cout << "Invalid choice. Please try again.\n";
+        }
+    } while (choice != 4);
+
+    return 0;
+}
